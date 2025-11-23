@@ -51,7 +51,7 @@ const ProductDetailsForFarmer = () => {
       } catch (err) {
         console.error("Error fetching product:", err);
       } finally {
-        setTimeout(() => setLoading(false), 400);
+        setLoading(false);
       }
     };
 

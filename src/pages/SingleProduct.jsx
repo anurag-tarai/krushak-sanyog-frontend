@@ -36,10 +36,9 @@ const SingleProduct = () => {
   };
 
 
-  
-    const showSignInMessage = () => {
+  const showSignInMessage = () => {
     showToast("Sign in required — redirecting...", "warning");
-    setTimeout(() => navigate("/buyer/signin"), 2000);
+    navigate("/buyer/signin");
   };
 
 
@@ -62,10 +61,7 @@ const SingleProduct = () => {
     } catch (err) {
       console.error("Error fetching data:", err);
     } finally {
-      const timer = setTimeout(() => {
-        if (isMounted) setLoading(false);
-      }, 400);
-      return () => clearTimeout(timer);
+      if (isMounted) setLoading(false);
     }
   };
 

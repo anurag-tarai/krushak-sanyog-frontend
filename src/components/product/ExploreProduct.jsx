@@ -138,20 +138,16 @@ const ExploreProduct = () => {
       })
       .catch(() => showToast("Failed to load products. Please try again.", "error"))
       .finally(() => {
-        setTimeout(() => {
-          setSidebarLoading(false);
-          setProductLoading(false);
-        }, 600);
+        setSidebarLoading(false);
+        setProductLoading(false);
       });
   }, []);
 
   useEffect(() => {
     if (!products.length) return;
     setProductLoading(true);
-    setTimeout(() => {
-      filterProducts(selectedCategory, priceOrder, nameSearch, products, getActiveLocation());
-      setProductLoading(false);
-    }, 400);
+    filterProducts(selectedCategory, priceOrder, nameSearch, products, getActiveLocation());
+    setProductLoading(false);
   }, [selectedCategory, priceOrder, currentLocation, selectedLocation]);
 
   const handleUseCurrentLocation = () => {
@@ -176,7 +172,7 @@ const ExploreProduct = () => {
 
   const showSignInMessage = () => {
     showToast("Sign in required — redirecting...", "warning");
-    setTimeout(() => navigate("/buyer/signin"), 2000);
+    navigate("/buyer/signin");
   };
 
   const addProductToCart = (productid) => {

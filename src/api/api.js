@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8181/", // backend URL
+  baseURL: process.env.REACT_APP_BASE_URL, // backend URL
   withCredentials: true,             // ✅ send cookies automatically
 });
 
