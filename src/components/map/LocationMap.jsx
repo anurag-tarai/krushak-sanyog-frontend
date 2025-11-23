@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useNavigate } from "react-router-dom";
 
 // ✅ Fix default Leaflet icons (disable built-ins)
 delete L.Icon.Default.prototype._getIconUrl;
@@ -57,6 +58,21 @@ const LocationMap = ({ latitude, longitude, onSelect, products = [] }) => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [loadingSearch, setLoadingSearch] = useState(false);
+const navigate = useNavigate();
+
+const name = localStorage.getItem("name");
+
+const showSignInMessage = () => {
+  alert("Sign in required — redirecting...");
+ navigate("/buyer/signin")
+};
+
+
+const handleViewDetails = (productId) => {
+    if (!name) return showSignInMessage();
+    navigate(`/product/${productId}`);
+  };
+
 
   // 🗺️ Initialize map once
   useEffect(() => {
@@ -120,16 +136,32 @@ const LocationMap = ({ latitude, longitude, onSelect, products = [] }) => {
 
     // 🟩 Add product markers
     products?.forEach((p) => {
-      if (p.latitude && p.longitude) {
-        L.marker([p.latitude, p.longitude], { icon: customIcons.product })
-          .addTo(markersLayer.current)
-          .bindPopup(`<img
-                      src=${p.imageUrls?.length
-                          ? p.imageUrls[0]
-                          : "https://via.placeholder.com/300x200?text=No+Image"}
-                    /><b>${p.name}</b>`);
+  if (p.latitude && p.longitude) {
+
+    const marker = L.marker([p.latitude, p.longitude], { icon: customIcons.product })
+      .addTo(markersLayer.current)
+      .bindPopup(`
+        <div id="popup-${p.productId}">
+          <img
+            src="${p.imageUrls?.length ? p.imageUrls[0] : 'https://via.placeholder.com/300x200?text=No+Image'}"
+            style="width: 100%; border-radius: 8px;"
+          />
+          <b style="cursor:pointer; color:#10b981;">${p.name}</b>
+        </div>
+      `);
+
+    marker.on("popupopen", () => {
+      const elem = document.querySelector(`#popup-${p.productId} b`);
+      if (elem) {
+        elem.addEventListener("click", () => {
+          handleViewDetails(p.productId);
+        });
       }
     });
+
+  }
+});
+
   }, [products, latitude, longitude]);
   
   
