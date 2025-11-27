@@ -185,7 +185,7 @@ const SingleProduct = () => {
                         onClick={() => addToCart(product.productId)}
                         className="px-6 py-3 rounded-lg bg-green-700/80 hover:bg-green-600 text-gray-100 font-medium border border-green-600/60 transition-all shadow-[0_0_10px_rgba(34,197,94,0.25)] hover:shadow-[0_0_14px_rgba(34,197,94,0.35)]"
                       >
-                        Add to Cart
+                        Add to Wishlist
                       </button>
                     </div>
 

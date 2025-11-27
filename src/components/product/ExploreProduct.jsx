@@ -341,7 +341,7 @@ const ExploreProduct = () => {
                             : "bg-gray-800 text-gray-500 cursor-not-allowed"
                         }`}
                       >
-                        Add to Cart
+                        Add to Wishlist
                       </button>
                       <button
                         onClick={() => handleViewDetails(product.productId)}
